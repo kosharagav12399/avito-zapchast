@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Авито Запчасть</title>
+</head>
+<body>
+  <h2>Подтвердите своё местоположение</h2>
+  <button onclick="getLocation()">Показать моё местоположение</button>
+  <p id="status"></p>
+
+  <script>
+    function getLocation() {
+      const status = document.getElementById('status');
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(pos) {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          status.innerText = `Ваши координаты: ${lat}, ${lon}`;
+        }, function(err) {
+          status.innerText = 'Ошибка получения координат.';
+        });
+      } else {
+        status.innerText = 'Ваш браузер не поддерживает геолокацию.';
+      }
+    }
+  </script>
+</body>
+</html>
